@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController, ToastController, NavController } from '@ionic/angular';
 import { DataService } from 'src/app/data.service';
 import { UserModel } from 'src/app/models/user.model';
+import { SecurityUtil } from 'src/app/utils/security.util';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,7 @@ export class LoginPage implements OnInit {
       .authenticate(this.form.value)
       .subscribe(
         (res: UserModel) => {
-          //SecurityUtil.set(res);
+          SecurityUtil.set(res);
           loading.dismiss();
           this.navCtrl.navigateRoot('/');
         },
@@ -53,6 +54,16 @@ export class LoginPage implements OnInit {
           loading.dismiss();
         }
       )
+  }
+
+  async resetPassword() {
+    if (this.form.controls['username'].invalid) {
+      this.showError("Usuário inválido");
+      return;
+    }
+
+    const loading = await this.loadingCtrl.create({ message: 'Restaurando sua senha...' });
+    loading.present();
   }
 
   ngOnInit() {
