@@ -3,7 +3,7 @@
 </div>
 
 <p class="text-center" *ngIf="user">
-  <img src="{{ user.image }}" alt="{{ user.name }}">
-  <small> {{user.name}} </small>
+  <img src="{{ user.image }}" alt="{{ user.name }}"><br>
+  <small> {{user.name}} </small><br>
   <ion-button color="primary" size="small" (click)="logout()">Sair</ion-button>
 </p>
